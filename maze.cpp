@@ -25,6 +25,9 @@ const char flag = 'f';
 const char goal = 'g';
 
 void printMaze() {
+
+    // maze[1][2] = robot;
+
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
             cout << maze[i][j];
@@ -33,35 +36,60 @@ void printMaze() {
     }
 }
 
-
 class Coord {
     public:
-    int x = 0;  
-    int y = 0;
+    int y = 1;  
+    int x = 1;
 };
 
-void checkCoord() {
-    Coord newCoord;
+// void checkCoord() {
+//     Coord myCoord;
 
-    newCoord.x = 1;
-    newCoord.y = 1;
 
-    int xNow = newCoord.x;
-    int yNow = newCoord.y;
+//     cout << "saat ini robotmu berada di koordinat " << maze[myCoord.x][myCoord.y] << endl;
+// }
 
-    cout << maze[newCoord.x][newCoord.y];
+void solveMaze() {
+    class Coord myCoord;
 
-    // if (xNow && yNow == maze[1][1]) {
-    //     cout << "ini tembok";
-    // } else {
-    //     cout << "no";
+    int y = 1;
+    int x = 1;
+
+    myCoord.y = y;
+    myCoord.x = x;
+
+    while (maze[y][x] != flag)
+    {
+        if (maze[y][x + 1] != wall) {
+            x = x + 1;
+        } else if (maze[y+1][x] != wall) {
+                y = y + 1;
+        } else {
+            cout << "sudah tidak bisa begerak lagi" << endl;
+            break;
+        }
+    }
+    
+    //     printMaze();
     // }
+
+    // if (maze[y][x] != flag) {
+    //     while (maze[y][x + 1] != wall) {
+    //         x + 1;
+    //     }
+    // }
+
+
+    maze[y][x] = robot;
+
+    printMaze();
 }
 
 main () {
 
     printMaze();
-    checkCoord();
+    // checkCoord();
+    solveMaze();
 
     return 0;
 }
