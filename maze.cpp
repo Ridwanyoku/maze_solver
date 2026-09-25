@@ -32,8 +32,9 @@ void printMaze() {
         for (int j = 0; j < columns; j++) {
             cout << maze[i][j];
         }
-        cout << '\n';
+        cout << endl;
     }
+    cout << endl;
 }
 
 class Coord {
@@ -42,53 +43,55 @@ class Coord {
     int x = 1;
 };
 
-// void checkCoord() {
-//     Coord myCoord;
-
-
-//     cout << "saat ini robotmu berada di koordinat " << maze[myCoord.x][myCoord.y] << endl;
-// }
 
 void solveMaze() {
-    class Coord myCoord;
-
     int y = 1;
     int x = 1;
-
-    myCoord.y = y;
-    myCoord.x = x;
 
     while (maze[y][x] != flag)
     {
         if (maze[y][x + 1] != wall) {
             x = x + 1;
-        } else if (maze[y+1][x] != wall) {
+        } else if (maze[y + 1][x] != wall) {
                 y = y + 1;
+        } else if (maze[y][x - 1] != wall) {
+                x = x - 1;
         } else {
             cout << "sudah tidak bisa begerak lagi" << endl;
             break;
         }
+        
     }
-    
-    //     printMaze();
-    // }
-
-    // if (maze[y][x] != flag) {
-    //     while (maze[y][x + 1] != wall) {
-    //         x + 1;
-    //     }
-    // }
-
 
     maze[y][x] = robot;
-
     printMaze();
+    cout << "bendera telah diambil, sekarang menuju goal " << endl;
+    
+    maze[y][x] = path;
+
+    while (maze[y][x] != goal)
+    {
+        if (maze[y][x + 1] != wall) {
+            x = x + 1;
+        } else if (maze[y - 1][x] != wall) {
+                y = y - 1;
+        } else if (maze[y][x - 1] != wall) {
+                x = x - 1;
+        } else {
+            cout << "sudah tidak bisa begerak lagi" << endl;
+            break;
+        }
+        
+    }
+
+    maze[y][x] = robot;
+    printMaze();
+    cout << "goal!!!!!!" << endl;
 }
 
 main () {
 
     printMaze();
-    // checkCoord();
     solveMaze();
 
     return 0;
